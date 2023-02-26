@@ -1,0 +1,6 @@
+#Ignore Class files
+*.class
+#Ignore MAC System files
+.DS_Store
+
+.idea
