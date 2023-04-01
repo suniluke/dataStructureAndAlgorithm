@@ -31,15 +31,87 @@ public class BinaryTree{
         tree.add(33);
         tree.add(38);
 
+        System.out.println("Inverting Binary Tree");
         //tree.invertBinaryTree();
+        System.out.println("-----------------------------------------------------------");
+
 
         List<Integer> sums = tree.branchSums();
         System.out.println("Sum Of All Branches: " + sums);
-
-        tree.inorderTraversal();
+        System.out.println("-----------------------------------------------------------");
 
         Integer closestValue = tree.closestValueTo(33);
         System.out.println("Closest Value: " + closestValue);
+        System.out.println("-----------------------------------------------------------");
+
+        boolean isValidBST = tree.validateBst();
+        System.out.println("isValidBST: " + isValidBST);
+        System.out.println("-----------------------------------------------------------");
+
+        System.out.println("Inorder Traveral:");
+        tree.inorderTraversal();
+
+        System.out.println("\nPreorder Traveral:");
+        tree.preOrderTraversal();
+
+        System.out.println("\nPostorder Traveral:");
+        tree.postOrderTraversal();
+        System.out.println("\n-----------------------------------------------------------");
+
+    }
+
+    private boolean validateBst() {
+        //return validateBstHelper(head); // this method is not working
+        //head.left.right.value = 333;
+        return validateBstHelper(head, Integer.MIN_VALUE, Integer.MAX_VALUE);
+
+    }
+
+    private boolean validateBstHelper(Node node, int minValue, int maxValue) {
+        if(node == null){
+            return true;
+        }
+
+        if(node.value < minValue || node.value >= maxValue){
+            return false;
+        }
+
+        return validateBstHelper(node.left,minValue, node.value) && validateBstHelper(node.right, node.value, maxValue);
+
+    }
+
+    private boolean validateBstHelper2(Node node, int minValue, int maxValue) {
+        if(node.left == null && node.right == null){
+            return true;
+        }
+
+        if(node.value < minValue || node.value >= maxValue){
+            return false;
+        }
+
+        if(node.left != null){
+            return validateBstHelper2(node.left, minValue, node.value);
+        }
+
+        if(node.right != null){
+            return validateBstHelper2(node.right, node.value, maxValue);
+        }
+        return true;
+    }
+
+    private boolean validateBstHelper(Node node) { // this method is not working
+        if(node.left == null && node.right == null){
+            return true;
+        }
+
+        if(node.left != null && node.left.value < node.value){
+            return validateBstHelper(node.left);
+        }else if(node.right != null && node.right.value >= node.value){
+            return  validateBstHelper(node.right);
+        } else {
+            return false;
+        }
+
     }
 
     private void add(int value) {
@@ -99,10 +171,32 @@ public class BinaryTree{
         }
 
         inorderTraversalRecursive(node.left);
-        System.out.println(node.value);
+        System.out.print(node.value + " ");
         inorderTraversalRecursive(node.right);
     }
 
+    private void preOrderTraversal() {
+        preOrderTraversalRecursive(head);
+    }
+
+    private void preOrderTraversalRecursive(Node node) {
+        if(node == null) return;
+        System.out.print(node.value + " ");
+        preOrderTraversalRecursive(node.left);
+        preOrderTraversalRecursive(node.right);
+    }
+
+    private void postOrderTraversal() {
+        postOrderTraversalRecursive(head);
+    }
+
+    private void postOrderTraversalRecursive(Node node) {
+        if(node == null) return;
+        postOrderTraversalRecursive(node.left);
+        postOrderTraversalRecursive(node.right);
+        System.out.print(node.value + " ");
+
+    }
 
     private void invertBinaryTree() {
         invertBinaryTreeRecursive(head);
