@@ -1,4 +1,4 @@
-package caesar.cipher;
+package ceasar.cipher;
 
 public class CaesarCipherEncryptor2 {
 
