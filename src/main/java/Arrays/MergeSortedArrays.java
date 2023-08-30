@@ -1,7 +1,5 @@
 package Arrays;
 
-import static java.io.ObjectInputFilter.merge;
-
 public class MergeSortedArrays {
 
     public static void main(String[] args) {
@@ -14,7 +12,7 @@ public class MergeSortedArrays {
     }
 
     private static int[] merge(int[] nums1, int m, int[] nums2, int n) {
-
+    return new int[]{};
 
     }
 }
