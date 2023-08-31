@@ -31,7 +31,7 @@ public class SuffixTree {
 
         suffixTree.insert(str);
 
-        boolean isFound = suffixTree.findWord("suniluke");
+        boolean isFound = suffixTree.findWord("iluke");
 
         System.out.println(isFound);
     }
@@ -62,18 +62,5 @@ public class SuffixTree {
             itrNode = itrNode.children.get(currentChar);
         }
         return itrNode.isWord;
-    }
-
-    private void insert2(String str) {
-        Node itrNode = this.rootNode;
-        for(Character currentChar : str.toCharArray()){
-            if(itrNode.children.get(currentChar) == null){
-                Node node = new Node();
-                node.isWord = false;
-                itrNode.children.put(currentChar, node);
-                itrNode = node;
-            }
-        }
-        itrNode.isWord = true;
     }
 }
