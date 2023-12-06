@@ -5,44 +5,29 @@ import java.util.List;
 
 public class PowerSet {
     public static void main(String[] args) {
+        int[] set = new int[] {1,2,3};
 
-        //NOT COMPLETE
-
-        int[] set = new int[] {1,2,3,4};
-
-        List<List<Integer>> lists = powerSet2(set);
+        List<List<Integer>> lists = powerSet(set);
         System.out.println(lists.size());
         System.out.println(lists);
     }
 
+    //Time O(2^N * N) | space O(2^N * N)
+    //There are 2^N subsets and one subset have max size of N
     private static List<List<Integer>> powerSet(int[] set) {
-        List<List<Integer>> powerSet = new ArrayList<>();
-        powerSet.add(new ArrayList<>());
-        for(int num: set){
-            int size = powerSet.size();
-            for(int i=0; i<size; i++){
-                List<Integer> currentSubset = powerSet.get(i);
-                currentSubset.add(num);
-                powerSet.add(currentSubset);
+        List<List<Integer>> powerset = new ArrayList<>();
+        powerset.add(new ArrayList<>());
+        for(Integer num: set){
+            int length = powerset.size(); // so size in below loop does not change on going
+            for(int i=0; i< length; i++){
+                // not iterating through actual powerset to avoid concurrent modification exception
+                List<Integer> newSubset = new ArrayList<>(powerset.get(i));
+                newSubset.add(num);
+                powerset.add(newSubset);
+                System.out.println(newSubset);
             }
         }
-        return powerSet;
+        return powerset;
     }
 
-    private static List<List<Integer>> powerSet2(int[] set) {
-        List<List<Integer>> powerSet = new ArrayList<>();
-        for(int firstItr=0; firstItr < set.length; firstItr++){
-            List<Integer> currentSet = new ArrayList<>();
-            currentSet.add(set[firstItr]);
-            for(int secondItr=firstItr+1; secondItr < set.length; secondItr++){
-                List<Integer> copyPrevSet = new ArrayList<>(currentSet);
-                //powerSet.add(copyPrevSet);
-                List<Integer> copyCurrSet = new ArrayList<>(currentSet);
-                copyCurrSet.add(set[secondItr]);
-                powerSet.add(copyCurrSet);
-            }
-            powerSet.add(currentSet);
-        }
-        return powerSet;
-    }
 }
