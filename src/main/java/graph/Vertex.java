@@ -30,6 +30,10 @@ public class Vertex {
         this.edges.add(new Edge(this,endVertex, weight));
     }
 
+    public void addEdge(Vertex endVertex ){
+        this.edges.add(new Edge(this,endVertex, null));
+    }
+
     public void removeEdge(Vertex endVertex){
         this.edges.removeIf(edge -> edge.getEnd().equals(endVertex));
     }
