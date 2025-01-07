@@ -15,8 +15,6 @@ public class DoublyLinkedList {
         * setTail
         * containsNodeWithValue
      */
-
-
     public class Node{
         Integer value;
         Node prev;
@@ -37,16 +35,6 @@ public class DoublyLinkedList {
     private Node head;
     private Node tail;
 
-    // o(n) time | o(1) space
-    public boolean containsNodeWithValue (Integer value){
-        Node node = head;
-        while(node != null){
-            if(node.value == value)
-                return true;
-            node = node.next;
-        }
-        return false;
-    }
     //Logic number 2
     // o(n) time | o(1) space
     public boolean containsNodeWithValue2 (Integer value){
@@ -62,16 +50,12 @@ public class DoublyLinkedList {
     public void removeNode(Node node){
         if(node == null)
             return;
-
         if(node == head){
             head = head.next;
         }
-
         if (node == tail){
             tail = tail.prev;
         }
-
-        //now removing bindings from given node
         rmeoveBindings(node);
     }
 
@@ -80,11 +64,9 @@ public class DoublyLinkedList {
         if(node.prev != null){
             node.prev.next = node.next;
         }
-
         if(node.next != null){
             node.next.prev = node.prev;
         }
-
         node.prev = null;
         node.next = null;
     }
@@ -104,15 +86,11 @@ public class DoublyLinkedList {
     // o(1) time | o(1) space
     public void insertBefore(Node node, Node nodeToInsert){
         //if theres only one node in the list, don't do anything
-        //remove nodeToInsert if it already exists
-
         if(nodeToInsert == head && nodeToInsert == tail){
             return;
         }
-
         //removing if node already exists
         removeNode(nodeToInsert);
-
         //start adding node before
         nodeToInsert.prev = node.prev;
         nodeToInsert.next = node;
@@ -128,19 +106,14 @@ public class DoublyLinkedList {
     // o(1) time | o(1) space
     public void insertAfter(Node node, Node nodeToInsert){
         //if theres only one node in the list, don't do anything
-        //remove nodeToInsert if it already exists
-
         if(nodeToInsert == head && nodeToInsert == tail){
             return;
         }
-
         //removing if node already exists
         removeNode(nodeToInsert);
-
         //start adding node before
         nodeToInsert.prev = node;
         nodeToInsert.next = node.next;
-
         if(node.next == null){
             tail = nodeToInsert;
         }else{
@@ -174,14 +147,12 @@ public class DoublyLinkedList {
             setHead(nodeToInsert);
             return;
         }
-
         Node node = head;
         Integer currentPosition = 1; //Let's keep index as 1
         while(node != null && currentPosition != position){
             node = node.next;
             currentPosition++;
         }
-
         if(node != null){
             insertBefore(node, nodeToInsert);
         }else{ //we're at tail

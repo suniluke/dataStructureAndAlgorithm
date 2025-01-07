@@ -58,6 +58,24 @@ public class BinaryTree{
         tree.postOrderTraversal();
         System.out.println("\n-----------------------------------------------------------");
 
+        System.out.println("\nDepth First Search:");
+        tree.depthFirstSearch();
+        System.out.println("\n-----------------------------------------------------------");
+
+    }
+
+    private void depthFirstSearch() {
+        List<Integer> dfsList = new ArrayList<>();
+        depthFirstSearchHelper(dfsList, head);
+        System.out.println(dfsList);
+    }
+
+    private void depthFirstSearchHelper(List<Integer> dfsList, Node node) {
+        if(node == null) return;
+        dfsList.add(node.value);
+
+        depthFirstSearchHelper(dfsList, node.left);
+        depthFirstSearchHelper(dfsList, node.right);
     }
 
     private boolean validateBst() {

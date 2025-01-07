@@ -36,7 +36,7 @@ public class LinkedList {
 
         Node nodeBehind = null;
         Node currentNode = head;
-        Node nodeAhead = null;
+        Node nodeAhead;
 
         while(currentNode != null){
             nodeAhead = currentNode.next;
