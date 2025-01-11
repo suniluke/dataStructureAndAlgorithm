@@ -245,4 +245,55 @@ public class BinaryTree{
         }
     }
 
+    public Node deleteNodeIterative(Node root, int key) {
+        //find the node to be deleted
+        Node parentNode = null;
+        Node currentNode = root;
+
+        while(currentNode != null && currentNode.value != key){
+            parentNode = currentNode;
+            if(key < currentNode.value){
+                currentNode = currentNode.left;
+            } else {
+                currentNode = currentNode.right;
+            }
+        }
+
+        //if currentNode has one or no children
+        if(currentNode.left == null || currentNode.right == null){
+            Node replacementNode = null;
+            if(currentNode.right != null)
+                replacementNode = currentNode.right;
+            else if(currentNode.left != null)
+                replacementNode = currentNode.left;
+
+            //if node to be deleted is parent node
+            if(parentNode == null)
+                return replacementNode;
+
+            if(parentNode.left == currentNode)
+                parentNode.left = replacementNode;
+            else
+                parentNode.right = replacementNode;
+        } else {
+            //both nodes are present for node to be deleted
+            Node successorParent = currentNode;
+            Node successor = currentNode.left;
+            while(successor.left != null){
+                successorParent = successor;
+                successor = successor.left;
+            }
+
+            //update current node value
+            currentNode.value = successor.value;
+
+            //delete the successor node
+            if(successorParent.left == successor)
+                successorParent.left = successor.right;
+            else
+                successorParent.right = successor.right;
+        }
+        return root;
+    }
+
 }
