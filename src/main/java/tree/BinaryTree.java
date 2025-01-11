@@ -245,6 +245,33 @@ public class BinaryTree{
         }
     }
 
+    public Node deleteNodeRecursive(Node root, int key){
+        if(root == null)
+            return root;
+
+        if(key < root.value)
+            root.left = deleteNodeRecursive(root.left, key);
+        else if(key > root.value)
+            root.right = deleteNodeRecursive(root.right, key);
+        else{
+            //found the node.
+            //Scenario 1 -> No or one child
+            if(root.left == null)
+                return root.right;
+            else if(root.right == null)
+                return root.left;
+
+            //Scenario 2 -> both child present
+            Node successorNode = root.right;
+            while(successorNode.left != null)
+                successorNode = successorNode.left;
+
+            root.value = successorNode.value;
+            root.right = deleteNodeRecursive(root.right, root.value);
+        }
+        return root;
+    }
+
     public Node deleteNodeIterative(Node root, int key) {
         //find the node to be deleted
         Node parentNode = null;
